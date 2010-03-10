@@ -1,0 +1,11 @@
+<html><body>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+  </head>
+    <table>
+    {% for email in emails %}
+    <tr><td>{{email.email}}</td></tr>
+    {% endfor %}
+    </table>
+  </body>
+</html>
