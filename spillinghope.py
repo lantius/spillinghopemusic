@@ -17,6 +17,15 @@ class MainPage(webapp.RequestHandler):
     
     path = os.path.join(os.path.dirname(__file__), 'index.html')
     self.response.out.write(template.render(path, template_values))
+
+class ThanksPage(webapp.RequestHandler):
+  def get(self):
+
+    template_values = {}
+
+    path = os.path.join(os.path.dirname(__file__), 'thanks.html')
+    self.response.out.write(template.render(path, template_values))
+
     
 class Music(webapp.RequestHandler):
   def post(self):
@@ -43,7 +52,7 @@ class Music(webapp.RequestHandler):
     Spilling Hope
     """)
     
-    self.redirect('/')
+    self.redirect('/thanks')
        
 class EmailAddress(db.Model):
   email = db.StringProperty(multiline=True)
@@ -52,6 +61,7 @@ class EmailAddress(db.Model):
 def main():
   application = webapp.WSGIApplication(
                                    [('/', MainPage),
+                                    ('/thanks', ThanksPage),
                                     ('/music', Music)],
                                     debug=True)
   wsgiref.handlers.CGIHandler().run(application)
