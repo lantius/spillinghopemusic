@@ -14,8 +14,10 @@ import datetime
 
 class MainPage(webapp.RequestHandler):
   def get(self):
-    
     template_values = {}
+
+    if self.request.get('error'):      
+      template_values = {'error': 'true'}
     
     path = os.path.join(os.path.dirname(__file__), 'index.html')
     self.response.out.write(template.render(path, template_values))
@@ -33,7 +35,10 @@ class Music(webapp.RequestHandler):
   def post(self):
     
     email = self.request.get('email')
-    
+    if not email:
+      self.redirect('/?error=error')
+      return
+      
     email_address = EmailAddress.gql("WHERE email = :email", email=email).get()
     if email_address:
       email_address.date = datetime.datetime.now()

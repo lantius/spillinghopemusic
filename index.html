@@ -5,8 +5,13 @@
     form { display: inline; 
            margin: 0;}
     body { margin: 0;}
+    div.error { color: red; }
     </style>
   </head><body>
+    {% if error %}
+      <div class="error">A valid email address is required.</div>
+    {% endif %}
+    
     <form action="/music" method="post">
       <div>Email address: <input name="email" /></div>
       <div><input type="submit" value="Get the Compilation!"></div>
